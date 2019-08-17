@@ -1,19 +1,27 @@
 package bibleshow;
 
+import java.util.ArrayList;
+import java.util.List;
 
 public class Bibleshow {
 	public static void main(String[] args) {
 
 		
-		FileIOService service = new FileIOService();
+		FileIOService fileService = new FileIOService();
 		
-		String path = "/home/slikk/Dokumentumok/bibleshow/BibleShow.lng";
+		String path = "/home/slikk/Dokumentumok/bibleshow/BibleShow.lng";		
+		fileService.read(path);
+		String engLines = fileService.getLines("English");
 		
-		service.read(path);
-		String engLines = service.getLines("English");
+		path = "/home/slikk/Dokumentumok/bibleshow/BibleShowOld.lng";
+		fileService.read(path);
+		String hunLines = fileService.getLines("Magyar");
 		
-		System.out.println(engLines);
-
-
+		TranslationComparatorService compService = new TranslationComparatorService();
+		
+		List<String> diffs = new ArrayList<String>(compService.getDifferences(engLines, hunLines));
+		
+		System.out.print(diffs.size());
+		
 	}
 }
