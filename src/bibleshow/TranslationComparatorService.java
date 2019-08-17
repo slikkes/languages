@@ -6,41 +6,6 @@ import java.util.List;
 
 public class TranslationComparatorService {
 
-	// public List<String> getDifferences(String original, String trans) {
-	//
-	// List<String> origKeys = this.getItems(original);
-	// List<String> transKeys = this.getItems(trans);
-	//
-	// List<String> diffKeys = new ArrayList<String>();
-	//
-	// origKeys.forEach(item -> {
-	// if (transKeys.contains(item)) {
-	// diffKeys.add(item);
-	// }
-	// });
-	//
-	// return diffKeys;
-	// }
-	//
-	// private List<String> getItems(String langString) {
-	//
-	// List<String> lines = new
-	// ArrayList<String>(Arrays.asList(langString.split("\n")));
-	//
-	// List<String> keys = new ArrayList<String>();
-	// lines.forEach(line -> {
-	// String[] props = line.split("=");
-	//
-	// if (props.length == 2) {
-	//
-	// keys.add(props[0]);
-	// }
-	// });
-	//
-	// return keys;
-	//
-	// }
-
 	public List<String> getDifferences(String original, String translated) {
 
 		List<Translation> orig = this.getItems(original);
@@ -49,12 +14,11 @@ public class TranslationComparatorService {
 		List<String> diffKeys = new ArrayList<String>();
 
 		orig.forEach(item -> {
-			boolean exists = trans.stream().filter(t->item.key.equals(t.key)).count() > 0;
-
+			boolean exists = trans.stream().filter(t -> item.key.equals(t.key)).count() > 0;
 
 			if (!exists) {
-				 diffKeys.add(item.getOriginal()); 
-				//diffKeys.add(item.key);
+				diffKeys.add(item.getSeparatedWithTab());
+
 			}
 
 		});

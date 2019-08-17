@@ -1,8 +1,10 @@
 package bibleshow;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -39,14 +41,27 @@ public class FileIOService {
 	}
 
 	public String getLines(String lang) {
-		
-		//TODO if language doesn't included throw exception
 
-		
+		// TODO if language doesn't included throw exception
+
 		int start = this.fileContent.indexOf("[" + lang + "]") + lang.length() + 2;
 		int end = this.fileContent.indexOf("[" + this.getNextLang(lang) + "]", start);
-		
+
 		return this.fileContent.substring(start, end);
+	}
+
+	public void write(String path, String text) {
+
+		try {
+
+			BufferedWriter writer = new BufferedWriter(new FileWriter(path));
+			writer.write(text);
+
+			writer.close();
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
 	}
 
 	private void extractLanguages() {
@@ -61,9 +76,10 @@ public class FileIOService {
 	}
 
 	private String getNextLang(String lang) {
-		
-		//the language list order needs to be the same with the translations order in the file
-		
+
+		// the language list order needs to be the same with the translations order in
+		// the file
+
 		return this.languages.get(this.languages.indexOf(lang) + 1);
 	}
 

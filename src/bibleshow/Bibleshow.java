@@ -23,5 +23,7 @@ public class Bibleshow {
 		
 		System.out.print(diffs.size());
 		
+		path = "/home/slikk/Dokumentumok/bibleshow/diffs.lng";
+		fileService.write(path, String.join("\n",diffs));
 	}
 }
